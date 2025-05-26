@@ -5,7 +5,7 @@ Backend service is responsible for adding the given values to database. Backend 
 
 Install NodeJS, By default NodeJS 16 is available, We would like to enable 20 version and install this.
 
-**You can list modules by using dnf module list**
+**You can list modules by using dnf module list or dnf module list nodejs **
 
 ```
 dnf module disable nodejs -y
