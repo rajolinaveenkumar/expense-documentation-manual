@@ -80,7 +80,25 @@ SyslogIdentifier=backend
 [Install]
 WantedBy=multi-user.target
 ```
+**NOTE: The above one tells Linux how to start, stop, and manage your backend app like any other system service (e.g., MySQL, SSH, etc.).**
+```
+[Unit] → This section gives info about the service.
 
+Description = Backend Service → This is just a name shown when you run systemctl status.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+[Service]
+
+| Line                                 | Meaning                                                                                                                      |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `User=expense`                       | Your app will run as Linux user `expense`, **not root**. Safer!                                                              |
+| `Environment=DB_HOST="192.168.1.10"` | Sets an environment variable that your Node.js app can use to connect to MySQL. Replace this IP with your MySQL server’s IP. |
+| `ExecStart=/bin/node /app/index.js`  | This runs your Node.js app using the `node` command. It should point to the actual `.js` file of your app.                   |
+| `SyslogIdentifier=backend`           | Used for logging. When you view logs using `journalctl`, it tags them as "backend".                                          |
+-------------------------------------------------------------------------------------------------------------------------------------------------
+[Install] WantedBy=multi-user.target
+
+This means start this service automatically when the server boots up.
+```
 **NOTE: Ensure you replace <MYSQL-SERVER-IPADDRESS> with IP address**
 
 Load the service.
